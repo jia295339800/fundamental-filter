@@ -171,6 +171,11 @@ def review_coverage(packet, base):
 def formal(packet, base):
     """Formal delivery wrapper. Frozen numerical replay stays in calculate.py."""
     from calculate import calculate
+    from cash_fields import review_cash
+    packet = deepcopy(packet)
+    cash_review = None
+    if packet.get('排雷底稿'):
+        packet['排雷底稿'], cash_review = review_cash(packet['排雷底稿'], packet['证券'], base)
     brief = deepcopy(packet); brief.pop('估值卡', None)
     out = calculate(brief)
     coverage = review_coverage(packet, base)
@@ -180,6 +185,10 @@ def formal(packet, base):
         else:
             out = calculate(packet)
     out['披露覆盖'] = coverage
+    if cash_review is not None:
+        out['现金字段核验'] = cash_review
+        if cash_review['状态'] == '待核':
+            out['现金判断状态'] = '待核；未核本期字段已停止参与现金比较，不据此生成现金结论'
     out['用途'] = '正式研究交付；其他准入仍须原复核。calculate.py仅作冻结数值复算。'
     return out
 

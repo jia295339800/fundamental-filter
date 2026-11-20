@@ -1,9 +1,9 @@
 {
-  "version": "0.6.1",
+  "version": "0.6.2",
   "skill_path": "skills/fundamental-filter",
-  "file_count": 27,
+  "file_count": 28,
   "files_sha256": {
-    "SKILL.md": "f2ca842cc94e7136e063b6df2522fce3b7f96c31d6448df7e68f950e029fdd34",
+    "SKILL.md": "03842391186c4708b9f383630953f4d5931f005c40a28d5b767bba84f78f1c2e",
     "references/economic-example.json": "2449174d15b38624e2de96c818a5916658f4507df85e335daaf9937a3d1afee3",
     "references/historical-research.md": "220ae9068e5a7f85b3c1dbbcd536c8bdda957da982c6fff0b5e22541765ba1cf",
     "references/policies/投研系统阶段1.1_市场范围与排除规则_v1.6_20261109.md": "b7849d259e3ea6cb6ce92f7cb3c103b9e674c413341f5c01d049bf90a39f1247",
@@ -15,14 +15,15 @@
     "references/research-learning.md": "9b9bc2721b19a1b279907a6394ec9e2a0ed57f2d2a8b0fce995672aeec4b496b",
     "references/valuation-calibration.md": "ffc277886b941a64d308cf37b435bdc9e1c2ca6d2b05cf75a5ce4d1af36767f2",
     "references/valuation.md": "d0b0db81c28dfedbbf334b52141b664d15f70c8350d12c3da2a334c07f5970fb",
-    "references/workflow.md": "f24397b7d1b2a5065645a7029c58b92ade5a0c7e1d924355e6046c51a3403c5f",
+    "references/workflow.md": "33a56f3583b9bd0741d65b5c741079f4a6d4e1b34ae831552f2fa11901321eef",
     "scripts/admission.py": "aff24e7f1ecf41fd134ca12dbb9caae84477094ebdf04b95402ca9c6d3eaed85",
     "scripts/calculate.py": "7b4c324a07f60a9596b14a1884a35f8100ceb0adc5c4429944f795a29b7a7653",
     "scripts/calibration.py": "11d14c1762309784856298cee6dcbb913aa938539477b96be4b9b36a19e8227c",
-    "scripts/collector.py": "fc730762a2ed9786054338a64fa92971d89e3f82545ba2362e164b9acefb87f5",
-    "scripts/disclosures.py": "48b5ca62e379fc7fc840bcee435a4df883d40ff212d24113d3311bf5f5fb7031",
+    "scripts/cash_fields.py": "d7fbfdf2daf13135008688530a69cc4b85221ab94b21acdf0afab73ce3be9aab",
+    "scripts/collector.py": "2291c8aa014f2c20041e5648d486c134380bfe7d51b5bc8583fb591654f34669",
+    "scripts/disclosures.py": "717316c3374675bb3fafd8b072e5e74ca3cbd34e061c9bf85af5266d9e1e5ff2",
     "scripts/economics.py": "a8f274e585d3fb90b2adde66b620bf6238b1c5921dd0c66c3548f32792c0b1eb",
-    "scripts/entry.py": "cfcddc20117a3d7d125f50058806e3f5b565cd7332328fc570bca4762d959299",
+    "scripts/entry.py": "581227905f14d070a64505c43228cfdece367b8bf767b04f6ea27a7406c6f6d4",
     "scripts/extract.swift": "7baddab034ac6269ebf48293ae8bcf064db2b3d3d1d5cb57e2f0b4c3160a6bf6",
     "scripts/historical_research.py": "809b57e15b2418f54f62a2461d31c5b257af5a2051be4a975f7faa06893c4630",
     "scripts/models.py": "ee0ad96988496c4756b534e5865311005dd6363715167419cf3ef9435fe589c4",
@@ -31,7 +32,7 @@
     "scripts/risks.py": "d924bf291c48310df9c8a8f98d2e39ef16ca2fdc70f9ae57ea97aab2a6b156ee",
     "scripts/support.py": "fe8aa8332b71ba8425ea047485e3e77fad5e143c45ade9b79aa96a31273feb3b"
   },
-  "release_asset": "fundamental-filter-v0.6.1.zip",
-  "release_asset_sha256": "c24648af276ec30f73803543144aa58ad59f2511d7b4d916cfed9660d69dccfe",
+  "release_asset": "fundamental-filter-v0.6.2.zip",
+  "release_asset_sha256": "551300b69f4b1cafaeb728fb286da87e06040755c39401a00cee7f7bda16f2d6",
   "scope": "Exact stable Skill snapshot; no company research, frozen forecasts, external screenshot tools, or credentials."
 }

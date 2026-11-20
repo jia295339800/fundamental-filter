@@ -221,7 +221,9 @@ def documents(src, rows, as_of, name, report, gaps):
 
 
 def financials(text, report, gaps):
-    flat = compact(text.split("=== PAGE 3 ===", 1)[0])
+    from cash_fields import summary_amount
+    original = text.split("=== PAGE 3 ===", 1)[0]
+    flat = compact(original)
     flag = r"公司是否需追溯调整或重述以前年度会计数据□是[√☑✓]否"
     if not re.search(flag, flat):
         gaps.append("§2.3 三季报追溯重述原因及范围需复核")
@@ -235,13 +237,18 @@ def financials(text, report, gaps):
     ]
     values = {}
     for label, start, end in fields:
-        part = flat.partition(start)[2].partition(end)[0]
-        numbers = re.findall(r"(?<![\d,.])-?\d{1,3}(?:,\d{3})+\.\d{2}", part)
-        if len(numbers) != (1 if "现金流" in label else 2):
-            gaps.append(f"§2.3 {label}表格列识别失败，需看原表")
-            continue
-        values[label] = float(D(numbers[-1].replace(",", "")) / YI)
+        # Heading matching tolerates line wraps; numeric cells retain boundaries.
+        heading = lambda s: r"\s*".join(re.escape(c) for c in s)
+        match = re.search(heading(start) + r"(.*?)" + heading(end), original, re.S)
+        try:
+            if not match:
+                raise ValueError("字段或列边界缺失")
+            values[label] = float(summary_amount(match[1], cash="现金流" in label) / YI)
+        except ValueError as exc:
+            gaps.append(f"§2.3 {label}表格列识别待核：{exc}")
     report["原文数值"] = values
+    report["现金字段核验"] = {"经营现金流": {"状态": "待核",
+        "说明": "主表金额提取不等于原表现金勾稽通过；使用现金判断前交cash-check或正式复核路径"}}
 
 
 def run(args):

@@ -214,7 +214,12 @@ def row_result(symbol, day, row, small_cap=False, cache=None):
     if risk_packet:
         for item in risk_packet["数值"].values():
             source_check(item["证据"], directory, manifest)
-        out["财报排雷"] = evaluate(risk_packet, day)
+        from cash_fields import review_cash
+        checked_risk, cash_review = review_cash(risk_packet, symbol, row)
+        out["财报排雷"] = evaluate(checked_risk, day)
+        out["现金字段核验"] = cash_review
+        if cash_review["状态"] == "待核":
+            out["现金判断状态"] = "待核；未核本期字段已停止参与现金比较"
     gaps = valuation_gap(review)
     if gaps:
         out.update(估值状态="待核", 估值缺口=gaps)
@@ -306,7 +311,7 @@ def run(args):
         manifest = {"证券": args.symbols, "基准日": day, "规则SHA256": digest(RULE),
                     "取证入口SHA256": digest(COLLECTOR), "编排SHA256": digest(Path(__file__)),
                     "点名小市值": sorted(named), "估值SHA256": digest(HERE / "models.py"),
-                    "附加计算SHA256": {x: digest(HERE / x) for x in ("admission.py", "risks.py", "calibration.py", "economics.py", "research_check.py", "disclosures.py", "support.py", "extract.swift")}}
+                    "附加计算SHA256": {x: digest(HERE / x) for x in ("admission.py", "risks.py", "calibration.py", "economics.py", "research_check.py", "disclosures.py", "cash_fields.py", "support.py", "extract.swift")}}
         batch = out / "批次.json"
         if batch.exists() and load(batch) != manifest:
             raise ValueError("批次、规则或实现变更，请另开目录")
@@ -367,6 +372,9 @@ def run(args):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "cash-check":
+        from cash_fields import main as cash_main
+        raise SystemExit(cash_main(sys.argv[2:]))
     if len(sys.argv) > 1 and sys.argv[1] in ("disclosures", "formal"):
         from disclosures import main as disclosures_main
         mode = ["formal"] if sys.argv[1] == "formal" else []
