@@ -1,10 +1,10 @@
 # fundamental-filter
 
-A股、港股自主基本面研究与估值 Skill。当前稳定版本 **v0.6.2**。
+A股、港股自主基本面研究与估值 Skill。当前稳定版本 **v0.6.3**。
 
 支持单家公司研究与估值、批量快筛、定向问题研究，以及自主选择研究深度。共用原始资料取证、准入规则、经营分析、经济关系检查、条件估值、现价隐含要求反推和证据复用能力。
 
-本仓库同步已发布的稳定安装：`skills/fundamental-filter/` 内28个文件与原正式版本逐字节一致。本次限定维护现金数值提取与核验，没有修改准入规则、估值数学或经营预测方法，也没有上传个股研究底稿、历史预测、课程原件、桌面附件或账号凭据。
+本仓库同步已发布的稳定安装：`skills/fundamental-filter/` 内28个文件与原正式版本逐字节一致。本次限定维护会计政策及估计变更的章节边界定位，没有修改准入规则、估值数学或经营预测方法，也没有上传个股研究底稿、历史预测、课程原件、桌面附件或账号凭据。
 
 ## 在另一台设备上安装
 
@@ -19,7 +19,7 @@ gh auth setup-git
 
 把下面这句话发给目标设备上的 Codex：
 
-> 使用 skill-installer，从 GitHub 仓库 jia295339800/fundamental-filter 的 v0.6.2 标签安装 skills/fundamental-filter。它是私有仓库，请使用本机已登录的 GitHub/git 凭据；如已有同名 Skill，先核对版本并保留回退副本。
+> 使用 skill-installer，从 GitHub 仓库 jia295339800/fundamental-filter 的 v0.6.3 标签安装 skills/fundamental-filter。它是私有仓库，请使用本机已登录的 GitHub/git 凭据；如已有同名 Skill，先核对版本并保留回退副本。
 
 也可以运行 Codex 自带的安装器：
 
@@ -27,7 +27,7 @@ gh auth setup-git
 python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
   --repo jia295339800/fundamental-filter \
   --path skills/fundamental-filter \
-  --ref v0.6.2 \
+  --ref v0.6.3 \
   --method git
 ```
 
@@ -41,7 +41,7 @@ python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/inst
 gh repo clone jia295339800/fundamental-filter
 ```
 
-也可在 [v0.6.2 Release](https://github.com/jia295339800/fundamental-filter/releases/tag/v0.6.2) 下载原始 `fundamental-filter-v0.6.2.zip`，解压后安装 `fundamental-filter/`。无需复制本仓库的 Git 历史或整个研究项目。
+也可在 [v0.6.3 Release](https://github.com/jia295339800/fundamental-filter/releases/tag/v0.6.3) 下载原始 `fundamental-filter-v0.6.3.zip`，解压后安装 `fundamental-filter/`。无需复制本仓库的 Git 历史或整个研究项目。
 
 ## 环境与功能边界
 
@@ -50,7 +50,7 @@ gh repo clone jia295339800/fundamental-filter
 - Linux/Windows 上没有原生 PDFKit，Windows 也不能直接使用本版依赖的 `fcntl`。本次没有增加跨平台适配；安装目录成功不等于完整自动取证能运行。Linux可使用兼容的数值计算部分，并按既有路径提供可复核、带原页标记的归档正文。
 - Skill 是供宿主 Agent 执行的研究指引与计算工具，不是输入股票代码后无需 Agent 就会独立产出研究的终端程序。宿主仍需具备检索、读取资料、业务判断和报告交付能力。
 - 研报客、雪球、iFinD、Longbridge等属于可用时调用的外部工具，不在本包内，不携带任何登录凭据。关键原始证据不足时保留待核。
-- 截图主体独立校验是原项目的外部预处理工具，不属于这28文件的v0.6.2核心包。新设备尚未接入该工具时，优先用明确的文字公司名或证券代码发起研究；不能声称核心包已包含这项截图校验。
+- 截图主体独立校验是原项目的外部预处理工具，不属于这28文件的v0.6.3核心包。新设备尚未接入该工具时，优先用明确的文字公司名或证券代码发起研究；不能声称核心包已包含这项截图校验。
 
 ## 使用示例
 
@@ -81,12 +81,12 @@ python3 -B skills/fundamental-filter/scripts/entry.py check \
 
 ## 版本与完整性
 
-`v0.6.2` 修复占位符引起的CFO符号误读，对CFO/购建支出加入有限的来源、期间、小计与明确舍入核验。研究现金值可按明确声明的精度四舍五入；通过后使用原件精确金额参与现金判断。原页列归属仍由Agent核对，不自动恢复全部PDF表格。保留多场景、披露覆盖和原估值能力，不宣称零错读、预测精度提高或Token成本下降。
+`v0.6.3` 修复会计政策及估计变更的章节边界，防止把相邻事项勾选归入目标事项；保留跨位置披露矛盾及边界不明时的待核。生产代码只改披露定位器，保留v0.6.2现金数值核验、原准入、经济检查、估值数学及多场景研究。事项性质与期间仍由Agent复核，不宣称支持全部PDF版式、零漏检、预测精度提高或Token成本下降。原v0.6.2标签与Release保留，可用于回退。
 
 原始ZIP SHA256：
 
 ```text
-551300b69f4b1cafaeb728fb286da87e06040755c39401a00cee7f7bda16f2d6
+af06810f4d02de29adc311d59a2ac993f6fe598babfa90b13abaf60d34eb8d54
 ```
 
 28文件逐项 SHA256 见 `release-manifest.json`。方法来源见 `skills/fundamental-filter/references/provenance.md`；第三方方法说明保留原出处，本仓库没有重新分发整本书或外部课程材料。

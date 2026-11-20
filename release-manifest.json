@@ -1,9 +1,9 @@
 {
-  "version": "0.6.2",
+  "version": "0.6.3",
   "skill_path": "skills/fundamental-filter",
   "file_count": 28,
   "files_sha256": {
-    "SKILL.md": "03842391186c4708b9f383630953f4d5931f005c40a28d5b767bba84f78f1c2e",
+    "SKILL.md": "14c24aa845756cd7a654b796cd9f759890e777345eb71bc1145e3b267107cec1",
     "references/economic-example.json": "2449174d15b38624e2de96c818a5916658f4507df85e335daaf9937a3d1afee3",
     "references/historical-research.md": "220ae9068e5a7f85b3c1dbbcd536c8bdda957da982c6fff0b5e22541765ba1cf",
     "references/policies/投研系统阶段1.1_市场范围与排除规则_v1.6_20261109.md": "b7849d259e3ea6cb6ce92f7cb3c103b9e674c413341f5c01d049bf90a39f1247",
@@ -21,7 +21,7 @@
     "scripts/calibration.py": "11d14c1762309784856298cee6dcbb913aa938539477b96be4b9b36a19e8227c",
     "scripts/cash_fields.py": "d7fbfdf2daf13135008688530a69cc4b85221ab94b21acdf0afab73ce3be9aab",
     "scripts/collector.py": "2291c8aa014f2c20041e5648d486c134380bfe7d51b5bc8583fb591654f34669",
-    "scripts/disclosures.py": "717316c3374675bb3fafd8b072e5e74ca3cbd34e061c9bf85af5266d9e1e5ff2",
+    "scripts/disclosures.py": "9a38664255b7a487ecdd84fb6f27c93facbbdab3fad40af068bf8b37366ebd72",
     "scripts/economics.py": "a8f274e585d3fb90b2adde66b620bf6238b1c5921dd0c66c3548f32792c0b1eb",
     "scripts/entry.py": "581227905f14d070a64505c43228cfdece367b8bf767b04f6ea27a7406c6f6d4",
     "scripts/extract.swift": "7baddab034ac6269ebf48293ae8bcf064db2b3d3d1d5cb57e2f0b4c3160a6bf6",
@@ -32,7 +32,7 @@
     "scripts/risks.py": "d924bf291c48310df9c8a8f98d2e39ef16ca2fdc70f9ae57ea97aab2a6b156ee",
     "scripts/support.py": "fe8aa8332b71ba8425ea047485e3e77fad5e143c45ade9b79aa96a31273feb3b"
   },
-  "release_asset": "fundamental-filter-v0.6.2.zip",
-  "release_asset_sha256": "551300b69f4b1cafaeb728fb286da87e06040755c39401a00cee7f7bda16f2d6",
-  "scope": "Exact stable Skill snapshot; no company research, frozen forecasts, external screenshot tools, or credentials."
+  "release_asset": "fundamental-filter-v0.6.3.zip",
+  "release_asset_sha256": "af06810f4d02de29adc311d59a2ac993f6fe598babfa90b13abaf60d34eb8d54",
+  "scope": "Exact stable Skill snapshot; section-boundary maintenance only; no company research, frozen forecasts, external screenshot tools, or credentials."
 }

@@ -21,7 +21,9 @@ MARK = re.compile(r"^=== PAGE (\d+) ===$")
 def level(line):
     line = compact(line)
     if re.match(r"^[一二三四五六七八九十百]+、", line): return 1
-    if re.match(r"^\d+[、.．](?!\d)", line): return 3
+    # A title can start with a year after 、; only dot separators need the
+    # decimal-number guard (e.g. 1.23 must not become a section heading).
+    if re.match(r"^\d+、", line) or re.match(r"^\d+[.．](?!\d)", line): return 3
     if re.match(r"^[（(][一二三四五六七八九十]+[）)]", line): return 2
     if re.match(r"^[（(]\d+[）)]", line): return 4
     return 0
@@ -34,6 +36,7 @@ def heading(line):
     text = re.sub(r"^[（(一二三四五六七八九十百\d、.．）)]+", "", text).rstrip("：:")
     if text == "审计意见": return TOPICS[0]
     if text in ("公司对会计政策、会计估计变更原因及影响的分析说明",
+                "与上年度财务报告相比，会计政策、会计估计变更或重大会计差错更正的情况说明",
                 "重要会计政策和会计估计变更", "重要会计政策和会计估计的变更",
                 "重要会计政策变更", "重要会计估计变更", "会计政策变更", "会计估计变更"):
         return TOPICS[1]
@@ -76,16 +79,29 @@ def sections(text, item, max_chars):
     for i, line in enumerate(lines):
         topic = heading(line)
         if topic is None: continue
-        depth = level(line); end = len(lines)
+        depth = level(line); end = len(lines); boundary_known = True
         for j in range(i + 1, len(lines)):
             other = level(lines[j])
+            # An unnumbered 其他 with its own immediately following checkbox
+            # is a separate disclosure item, not this policy/estimate's state.
+            if (topic == TOPICS[1] and compact(lines[j]) == "其他"
+                    and j + 1 < len(lines)
+                    and checkbox(lines[j + 1]) != "未标注或无法识别"):
+                # Recognize the template's separate supplement only after a
+                # nested first-adoption item. Otherwise 其他 has no reliable
+                # hierarchy: expose the excerpt but do not certify coverage.
+                boundary_known = any(level(s) > depth and "首次执行" in compact(s)
+                                     and "准则" in compact(s) for s in lines[i + 1:j])
+                end = j; break
             if (other and depth and other <= depth) or (
                 topic == TOPICS[0] and "形成审计意见的基础" in compact(lines[j])):
                 end = j; break
         raw = "\n".join(lines[i:end]).strip()
         # Ignore table-of-contents labels with no substantive body.
         if len(compact(raw)) < 24 and checkbox(raw) == "未标注或无法识别": continue
-        complete = len(raw) <= max_chars
+        # Without a recognized target hierarchy, adjacent checkboxes cannot
+        # establish coverage. Preserve the excerpt for review, but fail closed.
+        complete = len(raw) <= max_chars and boundary_known and (topic != TOPICS[1] or depth > 0)
         body = raw[:max_chars]
         token = hashlib.sha256((item['id'] + str(i) + topic + body).encode()).hexdigest()[:16]
         found.append({"id": token, "项目": topic, "原件id": item['id'],
